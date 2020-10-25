@@ -6,8 +6,8 @@ setopt INC_APPEND_HISTORY
 
 for file in ~/.zsh/**/*.zsh;source "$file"
 
-zstyle :compinstall filename '/home/ben/.zshrc'
-d="/home/ben/.zsh/dircolors"
+zstyle :compinstall filename '~/.zshrc'
+d="$HOME/.zsh/dircolors"
 eval "$(dircolors $d)"
 
 autoload -Uz compinit promptinit complist

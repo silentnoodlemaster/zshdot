@@ -7,7 +7,10 @@ setopt INC_APPEND_HISTORY
 for file in ~/.zsh/**/*.zsh;source "$file"
 
 zstyle :compinstall filename '/home/ben/.zshrc'
-autoload -Uz compinit promptinit
+d="/home/ben/.zsh/dircolors"
+eval "$(dircolors $d)"
+
+autoload -Uz compinit promptinit complist
 compinit
 promptinit
 prompt spaceship
@@ -18,6 +21,7 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias diff='diff --color=auto'
 alias icat='kitty +kitten icat'
+
 man() {
     LESS_TERMCAP_md=$'\e[01;31m' \
     LESS_TERMCAP_me=$'\e[0m' \

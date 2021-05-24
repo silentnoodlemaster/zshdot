@@ -6,20 +6,34 @@ setopt INC_APPEND_HISTORY
 
 for file in ~/.zsh/**/*.zsh;source "$file"
 
+[[ $(uname) = "Darwin" ]] && darwin=1
+
 zstyle :compinstall filename '~/.zshrc'
 d="$HOME/.zsh/dircolors"
-eval "$(dircolors $d)"
+
+if (( $+commands[dircolors] ))
+then  eval "$(dircolors $d)"
+elif (( $+commands[gdircolors] ))
+then eval "$(gdircolors $d)"
+fi
 
 autoload -Uz compinit promptinit complist
 compinit
 promptinit
 prompt spaceship
-source /usr/share/doc/pkgfile/command-not-found.zsh
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+if [[ -v darwin ]]
+then plugind="/usr/local/share"
+else plugind="/usr/share/zsh/plugins"
+fi
+source "$plugind/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source "$plugind/zsh-autosuggestions/zsh-autosuggestions.zsh"
+if [[ ! -v darwin ]]
+then
 alias ls='ls --color=auto'
-alias grep='grep --color=auto'
 alias diff='diff --color=auto'
+fi
+alias grep='grep --color=auto'
 alias icat='kitty +kitten icat'
 
 man() {

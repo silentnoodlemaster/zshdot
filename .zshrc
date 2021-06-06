@@ -30,6 +30,11 @@ source "$plugind/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source "$plugind/zsh-autosuggestions/zsh-autosuggestions.zsh"
 if [[ ! -v darwin ]]
 then
+source /usr/share/doc/pkgfile/command-not-found.zsh
+source /usr/share/nvm/init-nvm.sh
+
+alias printsrcinfo='makepkg --printsrcinfo > .SRCINFO'
+
 alias ls='ls --color=auto'
 alias diff='diff --color=auto'
 fi
@@ -62,3 +67,5 @@ precmd () {
     print -Pn "\e]0;%n@%M\a"
 }
 preexec () { print -Pn "\e]0;$1\a" }
+
+export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
